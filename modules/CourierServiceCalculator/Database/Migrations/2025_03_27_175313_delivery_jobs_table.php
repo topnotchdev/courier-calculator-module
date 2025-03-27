@@ -13,8 +13,9 @@ return new class extends Migration
     {
         Schema::create('courier_delivery_jobs', function (Blueprint $table) {
             $table->id();
+            $table->integer('courier_service_id');
             $table->integer('driver_id');
-            $table->integer('assistant_driver_id');
+            $table->integer('assistant_driver_id')->nullable();
             $table->integer('pickup_location_id');
             $table->float('total_distance');
             $table->boolean('requires_two_drivers')->default(false);

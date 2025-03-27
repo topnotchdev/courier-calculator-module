@@ -27,12 +27,15 @@
         "psr-4": {
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
-            "Database\\Seeders\\": "database/seeders/"
+            "Database\\Seeders\\": "database/seeders/",
+            "Modules\\": "modules/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\": "tests/"
+            "Tests\\": "tests/",
+            "Tests\\App\\": "tests/app/",
+            "Tests\\Modules\\": "tests/modules/"
         }
     },
     "scripts": {
@@ -54,6 +57,9 @@
         "dev": [
             "Composer\\Config::disableProcessTimeout",
             "npx concurrently -c \"#93c5fd,#c4b5fd,#fb7185,#fdba74\" \"php artisan serve\" \"php artisan queue:listen --tries=1\" \"php artisan pail --timeout=0\" \"npm run dev\" --names=server,queue,logs,vite"
+        ],
+        "run-tests": [
+            "@php ./vendor/bin/phpunit -c tests/phpunit.xml --no-coverage --no-logging"
         ]
     },
     "extra": {

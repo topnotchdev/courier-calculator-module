@@ -1,43 +1,27 @@
 <?php
 
-use App\Http\Controllers\CalculateDeliveryJobCostAction;
-use App\Http\Controllers\CreateDeliveryJobAction;
 use Illuminate\Support\Facades\Route;
+use Modules\CourierServiceCalculator\Http\Controllers\CalculateDeliveryJobCostAction;
+use Modules\CourierServiceCalculator\Http\Controllers\CourierDriverController;
+use Modules\CourierServiceCalculator\Http\Controllers\CourierServiceController;
+use Modules\CourierServiceCalculator\Http\Controllers\DeliveryDestinationController;
+use Modules\CourierServiceCalculator\Http\Controllers\DeliveryJobController;
+use Modules\CourierServiceCalculator\Http\Controllers\DeliveryLocationController;
 
 Route::prefix('courier')->group(function () {
     # Driver
-//    Route::get('/drivers/{id}');
-//    Route::get('/drivers');
-//    Route::post('/drivers');
-//    Route::patch('/drivers/{id}');
-//    Route::delete('/drivers/{id}');
-
-# DeliveryJob
-//    Route::get('/delivery-jobs/{id}');
-//    Route::get('/delivery-jobs');
-    Route::post('/delivery-jobs', CreateDeliveryJobAction::class)->name('courier.create_delivery_job');
-//    Route::patch('/delivery-jobs/{id}');
-//    Route::delete('/delivery-jobs/{id}');
-    Route::get('/delivery-jobs/{id}/calculate_total_cost', CalculateDeliveryJobCostAction::class)->name('courier.calculate_delivery_job_cost');
-
-# DeliveryDestination
-//    Route::get('/delivery-destinations/{id}');
-//    Route::get('/delivery-destinations');
-//    Route::post('/delivery-destinations');
-//    Route::patch('/delivery-destinations/{id}');
-//    Route::delete('/delivery-destinations/{id}');
-
+    Route::apiResource('drivers', CourierDriverController::class);
 # CourierService
-//    Route::get('/courier-services/{id}');
-//    Route::get('/courier-services');
-//    Route::post('/courier-services');
-//    Route::patch('/courier-services/{id}');
-//    Route::delete('/courier-services/{id}');
-
+    Route::apiResource('services', CourierServiceController::class);
+# DeliveryJob
+    Route::post(
+        '/deliveries/{id}/calculate_total_cost',
+        CalculateDeliveryJobCostAction::class
+    )->name('courier.calculate_delivery_job_cost');
+    Route::apiResource('deliveries', DeliveryJobController::class);
+# DeliveryDestination
+    Route::apiResource('destinations', DeliveryDestinationController::class);
 # Location
-//    Route::get('/locations/{id}');
-//    Route::get('/locations');
-//    Route::post('/locations');
-//    Route::patch('/locations/{id}');
-//    Route::delete('/locations/{id}');
+    Route::apiResource('locations', DeliveryLocationController::class);
 });
+
